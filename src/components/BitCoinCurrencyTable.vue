@@ -80,25 +80,25 @@ export default {
         newTodo
       )
     },
-    refreshcurrencydata () {
-      console.log('refreshCurrencyData')
-      this.currencydata = this.newcurrencydata
-    },
     getcurrencydata () {
       let query
-      query = `https://maps.googleapis.com/maps/api/geocode/json?address=&key=AIzaSyCRszFuoL7Wk2wZrbYuWPn2ESgIX_PCQ3s`
+      query = `https://blockchain.info/ticker`
+      console.log('getcurrencydata begin')
       fetch(`${query}`)
           .then(response => {
             if (response.status !== 200) {
               console.log('getcurrencydata() bad response')
               return
             }
-            response.json().then(data => {
+            let newdata = response.json()
+            console.log(newdata)
+            newdata.then(data => {
               // let lat = data.results[0].geometry.location.lat
               // let lng = data.results[0].geometry.location.lng
               // this.markers.push({position: {lat, lng}})
               // console.dir(data.results[0].geometry.location.lat)
-              console.log('currency data success')
+              console.log('currency data success' + data['USD'].buy)
+              console.log(JSON.stringify(data))
               return data
             })
           })
@@ -106,6 +106,10 @@ export default {
             console.log('caught error')
           })
       return 0
+    },
+    refreshcurrencydata () {
+      console.log('refreshCurrencyData')
+      this.currencydata = this.getcurrencydata()
     }
   }
 }
