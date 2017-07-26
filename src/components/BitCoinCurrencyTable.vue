@@ -12,7 +12,7 @@
                 <div class="panel-heading">
                   <h3 class="panel-title">BitCoin Currency Table  
 </h3>
-				  <div style="padding-left:15px;">Last Updated:</div><button class="btn-primary" style="margin:15px;">Refresh</button>  
+				  <div style="padding-left:15px;">Last Updated:</div><button v-on:click="refreshcurrencydata" class="btn-primary" style="margin:15px;">Refresh</button>  
                 </div>
                 <div class="panel-body" style="height: 366px;">
                   <div id="exampleTable1_wrapper" class="dataTables_wrapper form-inline no-footer"><table id="exampleTable1" class="table dataTable no-footer" role="grid">
@@ -67,6 +67,10 @@ export default {
       currencydata: {
         'USD': {'15m': 2540.0, 'last': 2540.0, 'buy': 2540.0, 'sell': 2539.42, 'symbol': '$'},
         'AUD': {'15m': 3197.69, 'last': 3197.69, 'buy': 3197.69, 'sell': 3196.96, 'symbol': '$'}
+      },
+      newcurrencydata: {
+        'USD': {'15m': 2540.0, 'last': 2544.0, 'buy': 2540.0, 'sell': 2539.42, 'symbol': '$'},
+        'AUD': {'15m': 3197.69, 'last': 314447.69, 'buy': 3197.69, 'sell': 3196.96, 'symbol': '$'}
       }
     }
   },
@@ -75,6 +79,33 @@ export default {
       this.currencydata.push(
         newTodo
       )
+    },
+    refreshcurrencydata () {
+      console.log('refreshCurrencyData')
+      this.currencydata = this.newcurrencydata
+    },
+    getcurrencydata () {
+      let query
+      query = `https://maps.googleapis.com/maps/api/geocode/json?address=&key=AIzaSyCRszFuoL7Wk2wZrbYuWPn2ESgIX_PCQ3s`
+      fetch(`${query}`)
+          .then(response => {
+            if (response.status !== 200) {
+              console.log('getcurrencydata() bad response')
+              return
+            }
+            response.json().then(data => {
+              // let lat = data.results[0].geometry.location.lat
+              // let lng = data.results[0].geometry.location.lng
+              // this.markers.push({position: {lat, lng}})
+              // console.dir(data.results[0].geometry.location.lat)
+              console.log('currency data success')
+              return data
+            })
+          })
+          .catch(() => {
+            console.log('caught error')
+          })
+      return 0
     }
   }
 }
