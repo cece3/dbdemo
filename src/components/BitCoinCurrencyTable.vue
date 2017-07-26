@@ -26,8 +26,8 @@
                       </tr>
                       <currency-table-row
                       	v-for="(currency, index) in currencydata"
-      					v-bind:key="index"
-      					v-bind:msg="currency"></currency-table-row>
+      					v-bind:index="index"
+      					v-bind:last="currency.last"></currency-table-row>
                       <tr role="row" class="odd">
                         <td>One More Industry</td>
                         <td class="numeric sorting_1">3</td>
