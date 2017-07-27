@@ -12,7 +12,7 @@
                 <div class="panel-heading">
                   <h3 class="panel-title">BitCoin Currency Table  
 </h3>
-				  <div style="padding-left:15px;">Last Updated:<span>{{ refreshedtime }}</span></div><button v-on:click="refreshcurrencydata" class="btn-primary" style="margin:15px;">Refresh</button>  
+				  <div style="padding-left:15px;">Last Updated:<span style="margin-left:9px">{{ refreshedtime }}</span></div><button v-on:click="refreshcurrencydata" class="btn-primary" style="margin:15px;">Refresh</button>  
                 </div>
                 <div class="panel-body" >
                   <div id="exampleTable1_wrapper" class="dataTables_wrapper form-inline no-footer"><table id="exampleTable1" class="table dataTable no-footer" role="grid">
@@ -82,7 +82,9 @@ export default {
               console.log('currency data success' + data['USD'].buy)
               this.currencydata = data
               let currenttime = new Date()
-              this.refreshedtime = currenttime.getHours() + ':' + currenttime.getMinutes() + ':' + currenttime.getSeconds()
+              this.refreshedtime = (currenttime.getHours() < 10 ? '0' : '') + currenttime.getHours() +
+                ':' + (currenttime.getMinutes() < 10 ? '0' : '') + currenttime.getMinutes() +
+                ':' + (currenttime.getSeconds() < 10 ? '0' : '') + currenttime.getSeconds()
             })
           })
           .catch(() => {
