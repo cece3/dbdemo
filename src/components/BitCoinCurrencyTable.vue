@@ -12,38 +12,20 @@
                 <div class="panel-heading">
                   <h3 class="panel-title">BitCoin Currency Table  
 </h3>
-				  <div style="padding-left:15px;">Last Updated:</div><button v-on:click="refreshcurrencydata" class="btn-primary" style="margin:15px;">Refresh</button>  
+				  <div style="padding-left:15px;">Last Updated:<span>{{ refreshedtime }}</span></div><button v-on:click="refreshcurrencydata" class="btn-primary" style="margin:15px;">Refresh</button>  
                 </div>
                 <div class="panel-body" >
                   <div id="exampleTable1_wrapper" class="dataTables_wrapper form-inline no-footer"><table id="exampleTable1" class="table dataTable no-footer" role="grid">
                     <thead>
-                      <tr role="row"><th class="sorting" tabindex="0" aria-controls="exampleTable1" rowspan="1" colspan="1" aria-label="Industry: activate to sort column ascending" style="width: 256px;">Currency</th><th class="numeric sorting_asc" tabindex="0" aria-controls="exampleTable1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rank: activate to sort column descending" style="width: 135px;">Rank</th></tr>
+                      <tr role="row"><th class="sorting" tabindex="0" aria-controls="exampleTable1" rowspan="1" colspan="1" aria-label="Industry: activate to sort column ascending" style="width: 256px;">Currency</th><th class="numeric sorting_asc" tabindex="0" aria-controls="exampleTable1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rank: activate to sort column descending" style="width: 135px;">Buy</th><th class="numeric sorting_asc" tabindex="0" aria-controls="exampleTable1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rank: activate to sort column descending" style="width: 135px;">Sell</th><th class="numeric sorting_asc" tabindex="0" aria-controls="exampleTable1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rank: activate to sort column descending" style="width: 135px;">Last</th></tr>
                     </thead><tbody>
-                                  
-                    <tr role="row" class="odd">
-                        <td>Some Industry</td>
-                        <td class="numeric sorting_1">1</td>
-                      </tr>
                       <currency-table-row
                       	v-for="(currency, index) in currencydata"
       					v-bind:index="index"
-      					v-bind:last="currency.last"></currency-table-row>
-                      <tr role="row" class="odd">
-                        <td>One More Industry</td>
-                        <td class="numeric sorting_1">3</td>
-                      </tr><tr role="row" class="even">
-                        <td>Industry A</td>
-                        <td class="numeric sorting_1">4</td>
-                      </tr><tr role="row" class="odd">
-                        <td>Another Industry</td>
-                        <td class="numeric sorting_1">5</td>
-                      </tr><tr role="row" class="even">
-                        <td>Industry C</td>
-                        <td class="numeric sorting_1">6</td>
-                      </tr><tr role="row" class="odd">
-                        <td>Industry</td>
-                        <td class="numeric sorting_1">7</td>
-                      </tr></tbody>
+      					v-bind:last="currency.last"
+      					v-bind:buy="currency.buy"
+      					v-bind:sell="currency.sell"></currency-table-row>
+					</tbody>
                   </table></div>
                 </div>
               </div>
@@ -63,6 +45,7 @@ export default {
   data () {
     return {
       msg: 'bitcoincurrency table',
+      refreshedtime: '',
       lastupdated: '',
       currencydata: {
         'USD': {'15m': 2540.0, 'last': 2540.0, 'buy': 2540.0, 'sell': 2539.42, 'symbol': '$'},
@@ -73,6 +56,9 @@ export default {
         'AUD': {'15m': 3197.69, 'last': 314447.69, 'buy': 3197.69, 'sell': 3196.96, 'symbol': '$'}
       }
     }
+  },
+  mounted: function () {
+    this.getcurrencydata()
   },
   methods: {
     addRow (newTodo) {
@@ -93,15 +79,10 @@ export default {
             let newdata = response.json()
             console.log(newdata)
             newdata.then(data => {
-              // let lat = data.results[0].geometry.location.lat
-              // let lng = data.results[0].geometry.location.lng
-              // this.markers.push({position: {lat, lng}})
-              // console.dir(data.results[0].geometry.location.lat)
               console.log('currency data success' + data['USD'].buy)
-              // let jsondata = JSON.stringify(data)
-              // console.log(jsondata)
               this.currencydata = data
-              // return jsondata
+              let currenttime = new Date()
+              this.refreshedtime = currenttime.getHours() + ':' + currenttime.getMinutes() + ':' + currenttime.getSeconds()
             })
           })
           .catch(() => {
@@ -112,8 +93,6 @@ export default {
     refreshcurrencydata () {
       console.log('refreshCurrencyData')
       this.getcurrencydata()
-      // this.currencydata = this.getcurrencydata()
-      console.log('returned currency data' + this.currencydata)
     }
   }
 }
