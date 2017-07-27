@@ -8,7 +8,7 @@
 <script type = "text/javascript">
 export default {
   name: 'currencytablerow',
-  props: ['index', 'last'],
+  props: ['index', 'last', 'currency'],
   data () {
     return {
       msg: 'test'

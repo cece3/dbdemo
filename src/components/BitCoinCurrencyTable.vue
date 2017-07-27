@@ -14,7 +14,7 @@
 </h3>
 				  <div style="padding-left:15px;">Last Updated:</div><button v-on:click="refreshcurrencydata" class="btn-primary" style="margin:15px;">Refresh</button>  
                 </div>
-                <div class="panel-body" style="height: 366px;">
+                <div class="panel-body" >
                   <div id="exampleTable1_wrapper" class="dataTables_wrapper form-inline no-footer"><table id="exampleTable1" class="table dataTable no-footer" role="grid">
                     <thead>
                       <tr role="row"><th class="sorting" tabindex="0" aria-controls="exampleTable1" rowspan="1" colspan="1" aria-label="Industry: activate to sort column ascending" style="width: 256px;">Currency</th><th class="numeric sorting_asc" tabindex="0" aria-controls="exampleTable1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rank: activate to sort column descending" style="width: 135px;">Rank</th></tr>
@@ -98,8 +98,10 @@ export default {
               // this.markers.push({position: {lat, lng}})
               // console.dir(data.results[0].geometry.location.lat)
               console.log('currency data success' + data['USD'].buy)
-              console.log(JSON.stringify(data))
-              return data
+              // let jsondata = JSON.stringify(data)
+              // console.log(jsondata)
+              this.currencydata = data
+              // return jsondata
             })
           })
           .catch(() => {
@@ -109,7 +111,9 @@ export default {
     },
     refreshcurrencydata () {
       console.log('refreshCurrencyData')
-      this.currencydata = this.getcurrencydata()
+      this.getcurrencydata()
+      // this.currencydata = this.getcurrencydata()
+      console.log('returned currency data' + this.currencydata)
     }
   }
 }
