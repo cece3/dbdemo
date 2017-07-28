@@ -1,11 +1,8 @@
 <template>
 <div>
-
-
 	<div class="col-xs-12">
 
           <div class="row sameheight">
-            
             
             <div class="col-xs-12 col-md-4">
               <div class="panel panel-table">
@@ -72,7 +69,7 @@ export default {
     getcurrencydata () {
       let query
       query = `https://blockchain.info/ticker`
-      console.log('getcurrencydata begin')
+      // console.log('getcurrencydata begin')
       fetch(`${query}`)
           .then(response => {
             if (response.status !== 200) {
@@ -98,14 +95,13 @@ export default {
       return 0
     },
     refreshcurrencydata () {
-      console.log('refreshCurrencyData')
       this.datacolor = 'datacolor-initial'
       this.getcurrencydata()
     }
   }
 }
 </script>
-<style>
+<style scoped>
 .datacolor {
 	color: black;
 	transition-duration:6s;
