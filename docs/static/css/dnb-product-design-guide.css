@@ -3,7 +3,7 @@
  * @license ISC
  */
 @import "https://s3.amazonaws.com/icomoon.io/26698/ProductDesign/style.css?-o1m5bm";
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700);
 @media (min-width: 768px) {
   .col-heightfix {
     display: table;
