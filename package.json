@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "dnb-product-design-guide": "file:dnb-product-design-guide",
+    "jquery": "^3.2.1",
     "vue": "^2.3.3",
     "vue-gh-pages": "^1.4.0",
     "vue-router": "^2.6.0"

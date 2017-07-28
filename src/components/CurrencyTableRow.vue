@@ -1,7 +1,8 @@
 <template>
 <tr role="row" class="even">
 	<td>{{ index }}</td>
-	<td class="numeric sorting_1">{{ buy }}</td>
+	<td class="numeric sorting_1">
+	    {{ buy }}</td>
 	<td class="numeric sorting_1">{{ sell }}</td>
 	<td class="numeric sorting_1">{{ last }}</td>
  </tr>
@@ -18,3 +19,5 @@ export default {
   }
 }
 </script>
+<style>
+</style>
