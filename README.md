@@ -2,6 +2,8 @@
 
 > BitCoin Demo for Dun & Bradstreet
 
+Vue.js application that hits the blockchain.info (https://blockchain.info/ticker) service and shows last, buy, and sell prices for each currency.  Data can be refreshed by pressing the "Refresh" button.  This demo uses the Dun & Bradstreet design guide with the responsive header and footer and data table as provided by the D&B product design guide (https://productdesign.dnb.com/developers/).  There are css transitions that make the data red when it's loaded or refreshed, and it will then fade to black.
+
 ## Build Setup
 
 ``` bash
