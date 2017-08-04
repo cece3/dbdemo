@@ -1,8 +1,6 @@
 <template>
 <div>
-	<div class="col-xs-12">
-
-          <div class="row sameheight">
+	
             
             <div class="col-xs-12 col-md-4">
               <div class="panel panel-table">
@@ -28,8 +26,6 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
 </div>
 </template>
 <script type = "text/javascript">
@@ -61,11 +57,6 @@ export default {
     this.getcurrencydata()
   },
   methods: {
-    addRow (newTodo) {
-      this.currencydata.push(
-        newTodo
-      )
-    },
     getcurrencydata () {
       let query
       query = `https://blockchain.info/ticker`
