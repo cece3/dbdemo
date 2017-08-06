@@ -1,15 +1,15 @@
-import { Bar } from 'vue-chartjs'
+import { Line } from 'vue-chartjs'
 
-export default Bar.extend({
+export default Line.extend({
   data () {
     return {
       datacollection: {
-        labels: ['January', 'February'],
+        labels: [],
         datasets: [
           {
-            label: 'Data One',
+            label: 'Transactions',
             backgroundColor: '#f87979',
-            data: [40, 20]
+            data: []
           }
         ]
       }
@@ -17,8 +17,32 @@ export default Bar.extend({
   },
   mounted () {
     // Overwriting base render method with actual data.
-    this.renderChart(this.datacollection)
+    var options = {
+      responsive: true,
+      scales: {
+        xAxes: [{
+          ticks: {
+            autoSkip: true,
+            maxTicksLimit: 6
+          },
+          scaleLabel: {
+            display: true
+          }
+        }],
+        yAxes: [{
+          scaleLabel: {
+            display: true
+          },
+          ticks: {
+            min: 150000,
+            max: 400000
+          }
+        }]
+      }
+    }
+    // console.log('chart options ' + options)
     this.gettransactions()
+    this.renderChart(this.datacollection, options)
   },
   methods: {
     gettransactions () {
@@ -36,12 +60,19 @@ export default Bar.extend({
             console.log(newdata)
             newdata.then(data => {
               this.transactiondata = data.values
-              let currenttime = new Date()
-              this.refreshedtime = (currenttime.getHours() < 10 ? '0' : '') + currenttime.getHours() +
-                ':' + (currenttime.getMinutes() < 10 ? '0' : '') + currenttime.getMinutes() +
-                ':' + (currenttime.getSeconds() < 10 ? '0' : '') + currenttime.getSeconds()
-              this.show = true
-              this.datacolor = 'datacolor'
+              // console.log(data.values.length)
+              var transactions = []
+              for (var i = 0; i < data.values.length; i++) {
+                var x = data.values[i].x
+                var y = data.values[i].y
+                console.log('adding ' + i + ' of ' + y)
+                // this.datacollection.datasets[0].data[i] = y
+                this.datacollection.labels.push(x)
+                this.datacollection.datasets[0].data.push(y)
+              }
+              this._chart.update()
+              console.log(transactions + ' and existing transactions ' + this.datacollection.datasets.data)
+              // this.datacollection.datasets.data.push(transactions)
             })
           })
           .catch(error => {
