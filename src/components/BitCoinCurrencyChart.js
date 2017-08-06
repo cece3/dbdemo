@@ -38,7 +38,8 @@ export default Line.extend({
             max: 400000
           }
         }]
-      }
+      },
+      elements: { point: { radius: 0, hitRadius: 5, hoverRadius: 5 } }
     }
     // console.log('chart options ' + options)
     this.gettransactions()
@@ -48,7 +49,6 @@ export default Line.extend({
     gettransactions () {
       let query
       query = `https://api.blockchain.info/charts/n-transactions?cors=true`
-      console.log('gettransactions begin')
       fetch(`${query}`)
           .then(response => {
             if (response.status !== 200) {
@@ -60,19 +60,14 @@ export default Line.extend({
             console.log(newdata)
             newdata.then(data => {
               this.transactiondata = data.values
-              // console.log(data.values.length)
-              var transactions = []
               for (var i = 0; i < data.values.length; i++) {
                 var x = data.values[i].x
                 var y = data.values[i].y
-                console.log('adding ' + i + ' of ' + y)
-                // this.datacollection.datasets[0].data[i] = y
+                // console.log('adding ' + i + ' of ' + y)
                 this.datacollection.labels.push(x)
                 this.datacollection.datasets[0].data.push(y)
               }
               this._chart.update()
-              console.log(transactions + ' and existing transactions ' + this.datacollection.datasets.data)
-              // this.datacollection.datasets.data.push(transactions)
             })
           })
           .catch(error => {
